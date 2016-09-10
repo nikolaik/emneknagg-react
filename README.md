@@ -3,15 +3,12 @@
     npm start
 
 ## TODO client
-Components:
  - Header
-   - SearchTerm
-   - Clock
+   - SearchTerm: Read from query string
+   - Clock: Update once per second, get time from server
  - TweetList
-   - Tweet
-     - TweetAvatar
-     - TweetContent
-     - TweetControls
+   - Tweet: relative times, search term highlight, url highlight
+
  - replace polling with socket.io or similar
 
 ## TODO server

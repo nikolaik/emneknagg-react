@@ -1,0 +1,32 @@
+
+@import "./mixins";;
+@import "colors";
+
+.tweet {
+  background-color: #292929;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  line-height: 1.2em;
+
+  @include clearfix;
+}
+.profile {
+  float: left;
+  width: 12%;
+  padding-top: 6px;
+}
+.text {
+  float: left;
+  width: 88%;
+}
+.search-term-highlight {
+  color: $highlight;
+}
+.when {
+  color: $when;
+
+  &:hover {
+    color: darken($when, 10%);
+  }
+}

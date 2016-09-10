@@ -3,7 +3,7 @@ require('styles/App.scss');
 
 import React from 'react';
 
-import EmneknaggHeader from './EmneknaggHeader';
+import EmneknaggHeader from './Header';
 import TweetList from './TweetList';
 
 class AppComponent extends React.Component {
@@ -11,15 +11,10 @@ class AppComponent extends React.Component {
     return (
       <div className="index">
         <EmneknaggHeader />
-        <TweetList />
+        <TweetList statuses={this.props.statuses} />
       </div>
     );
   }
 }
-
-AppComponent.propTypes = { initialCount: React.PropTypes.string };
-AppComponent.defaultProps = {
-  initialColor: 'orangeyellow'
-};
 
 export default AppComponent;
