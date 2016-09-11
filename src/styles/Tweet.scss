@@ -1,5 +1,4 @@
-
-@import "./mixins";;
+@import "mixins";
 @import "colors";
 
 .tweet {
@@ -21,7 +20,7 @@
   width: 88%;
 }
 .search-term-highlight {
-  color: $highlight;
+  color: $highlight;
 }
 .when {
   color: $when;

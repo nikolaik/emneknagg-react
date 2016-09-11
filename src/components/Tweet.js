@@ -8,6 +8,35 @@ require('styles/Tweet.scss');
 
 class Tweet extends React.Component {
 
+  static formatText(text, searchTerm) {
+    text = Tweet.anchorUrls(text);
+    text = Tweet.highlightTerm(text, searchTerm);
+    return text;
+  }
+
+  static anchorUrls(text) {
+    var _list = text.match( /\b(https?:\/\/|www\.|https?:\/\/www\.)[^ ]{2,100}\b/g );
+    if ( _list ) {
+      var i;
+      for ( i = 0; i < _list.length; i++ ) {
+        text = text.replace( _list[i], '<a target="_blank" href="' + _list[i] + '">'+ _list[i] + '</a>' );
+      }
+    }
+    return text;
+  }
+
+  static highlightTerm(text, term) {
+    var re = new RegExp(term, 'i');
+    var _list = re.exec(text);
+    if ( _list ) {
+      var i ;
+      for ( i = 0; i < _list.length; i++ ) {
+        text = text.replace( _list[i], '<span class="search-term-highlight">'+ _list[i] + '</span>' );
+      }
+    }
+    return text;
+  }
+
   static getRelativeTime(time, locale) {
     const DATETIME_FORMAT = 'MMM DD HH:mm:ss Z YYYY';
     moment.locale(locale); // format in locale
@@ -23,10 +52,12 @@ class Tweet extends React.Component {
     super(props);
 
     this.state = {
-      createdAtRelative: Tweet.getRelativeTime(props.status.created_at, props.locale)
+      createdAtRelative: Tweet.getRelativeTime(props.status.created_at, props.locale),
+      text: ' ' + Tweet.formatText(props.status.text, props.searchTerm)
     }
   }
 
+  // FIXME: How to avoid dangerouslySetInnerHTML?
   render() {
     return <div className="tweet">
         <div className="profile">
@@ -37,7 +68,7 @@ class Tweet extends React.Component {
         <div className="text">
           <span className="screen-name">
           <a href={'https://twitter.com/' + this.props.status.user.screen_name}>{this.props.status.user.screen_name}</a></span>
-          {' ' + this.props.status.text}<br/>
+          <span dangerouslySetInnerHTML={{__html: this.state.text}} /><br/>
           <a href={'https://twitter.com/' + this.props.status.user.screen_name + '/status/' + this.props.status.id_str} className="when" title={this.props.status.created_at}>{this.state.createdAtRelative}</a>
         </div>
       </div>
@@ -47,7 +78,8 @@ class Tweet extends React.Component {
 Tweet.displayName = 'Tweet';
 Tweet.defaultProps = {
   status: {},
-  locale: 'nb'
+  locale: 'nb',
+  searchTerm: ''
 
 };
 

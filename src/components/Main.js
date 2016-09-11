@@ -3,18 +3,18 @@ require('styles/App.scss');
 
 import React from 'react';
 
-import EmneknaggHeader from './Header';
+import Header from './Header';
 import TweetList from './TweetList';
 
-class AppComponent extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <div className="index">
-        <EmneknaggHeader />
-        <TweetList statuses={this.props.statuses} />
+        <Header />
+        <TweetList statuses={this.props.statuses} searchTerm={decodeURIComponent(this.props.search_metadata.query)} />
       </div>
     );
   }
 }
 
-export default AppComponent;
+export default App;

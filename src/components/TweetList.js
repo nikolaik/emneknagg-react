@@ -9,9 +9,11 @@ class TweetList extends React.Component {
   render() {
     return (
       <div className="tweet-list">
-        {this.props.statuses.map(function(status) {
-          return <Tweet key={status.id} status={status}/>
-        })}
+        {
+          this.props.statuses.map((status) => {
+            return <Tweet key={status.id} status={status} searchTerm={this.props.searchTerm} />
+          })
+        }
       </div>
     );
   }
